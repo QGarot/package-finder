@@ -5,7 +5,8 @@ import os
 cancel = ":q"
 find_composer = ":c"
 find_event = ":e"
-reset = ":r"
+reset_terminal = ":r"
+find_message = ":m"
 
 
 def run() -> None:
@@ -24,8 +25,12 @@ def run() -> None:
             print_info("Give the packet id")
             n = int(input("<< "))
             display_message_structure(n, "Event")
-        elif resp == reset:
+        elif resp == reset_terminal:
             clear_console = lambda: os.system('cls')
             clear_console()
+        elif resp == find_message:
+            print_info("What word do you want to use to search your package?")
+            word = str(input("<< "))
+            display_messages_containing_name(word)
         else:
             pass

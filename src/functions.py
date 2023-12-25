@@ -20,6 +20,20 @@ def find_message_name_with_id(n: int, message_type: str) -> str:
     return ""
 
 
+def display_messages_containing_name(name: str) -> None:
+    """
+    Display all messages containing "name"
+    :param name:
+    :return:
+    """
+    habbo_messages = open("communication/HabboMessages.as", "r")
+    content = habbo_messages.readlines()
+    for line in content:
+        if " = " in line and name in line:
+            print_info(line)
+    habbo_messages.close()
+
+
 def get_path_from_habbo_messages(file_name: str) -> str:
     """
     Get file path
