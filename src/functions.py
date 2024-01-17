@@ -1,3 +1,5 @@
+import os
+
 from src.logger import *
 
 
@@ -98,3 +100,24 @@ def display_message_structure(n: int, message_type: str) -> None:
             pass
     else:
         print_error("No message found with this name.")
+
+
+def display_folder_content(path: str) -> None:
+    """
+    Display folder and file names
+    :param path:
+    :return:
+    """
+    print("Folders:")
+    try:
+        contents = os.listdir(path)
+        for content in contents:
+            if os.path.isdir(os.path.join(path, content)):
+                print("/" + content + "/")
+
+        print("\nFiles:")
+        for content in contents:
+            if not os.path.isdir(os.path.join(path, content)):
+                print("/" + content)
+    except FileNotFoundError:
+        print_error("The specified path was not found")
