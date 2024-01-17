@@ -72,9 +72,13 @@ def display_message_structure(n: int, message_type: str) -> None:
 
                 # get path (parser)
                 path = path.replace("incoming", "parser").replace("Event", "Parser")
-                message_parser = open(path, "r")
-                print_file_content(message_parser.read())
-                message_parser.close()
+
+                try:
+                    message_parser = open(path, "r")
+                    print_file_content(message_parser.read())
+                    message_parser.close()
+                except FileNotFoundError:
+                    print_error("File not found!")
             else:
                 print_error("No message event found.")
         elif message_type == "Composer":
@@ -82,9 +86,12 @@ def display_message_structure(n: int, message_type: str) -> None:
             path = get_path_from_habbo_messages(message_name)
             # open file
             if path != "":
-                message_composer = open(path, "r")
-                print_file_content(message_composer.read())
-                message_composer.close()
+                try:
+                    message_composer = open(path, "r")
+                    print_file_content(message_composer.read())
+                    message_composer.close()
+                except FileNotFoundError:
+                    print_error("File not found!")
             else:
                 print_error("No message composer found.")
         else:
