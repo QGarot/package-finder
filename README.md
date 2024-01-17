@@ -1,4 +1,4 @@
-# package-finder
+# 🔍 package-finder
 
 ### What is package-finder?
 _package-finder_ is a tool which allows you to quickly know package structure and browse easily through _communication_ folder.
