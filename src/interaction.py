@@ -1,15 +1,8 @@
-from src.logger import *
-from src.functions import *
+from logger import *
+from functions import *
 import os
-
-cancel = ":q"
-find_composer = ":c"
-find_event = ":e"
-reset_terminal = ":r"
-find_message = ":m"
-list_folder_content = ":l"
-reset_path = ":rp"
-open_file = ":o"
+from platform import system
+from actions import *
 
 
 def run() -> None:
@@ -17,36 +10,49 @@ def run() -> None:
     path = ""
     while launched:
         print_info("What do you want to do?")
+        print("- Find message composer " + FIND_COMPOSER)
+        print("- Find message event " + FIND_EVENT)
+        print("- Search a message with specific word " + FIND_MESSAGE)
+        print("- Clear console " + RESET_TERMINAL)
+        print("- Give folder content " + LIST_FOLDER_CONTENT)
+        print("- Reset path " + RESET_PATH)
+        print("- Display file content " + OPEN_FILE)
+        print("- Cancel " + CANCEL)
+
         resp = input("<< ")
 
-        if resp == cancel:
+        if resp == CANCEL:
             launched = False
-        elif resp == find_composer:
+        elif resp == FIND_COMPOSER:
             print_info("Give the packet id")
             n = int(input("<< "))
             display_message_structure(n, "Composer")
-        elif resp == find_event:
+        elif resp == FIND_EVENT:
             print_info("Give the packet id")
             n = int(input("<< "))
             display_message_structure(n, "Event")
-        elif resp == reset_terminal:
-            clear_console = lambda: os.system('cls')
+        elif resp == RESET_TERMINAL:
+            current_os = system()
+            if current_os == "Windows":
+                clear_console = lambda: os.system('cls')
+            else:
+                clear_console = lambda: os.system('clear')
             clear_console()
-        elif resp == find_message:
+        elif resp == FIND_MESSAGE:
             print_info("What word do you want to use to search your package?")
             word = str(input("<< "))
-            display_messages_containing_name(word)
-        elif resp == list_folder_content:
+            display_messages_containing_word(word)
+        elif resp == LIST_FOLDER_CONTENT:
             print_info("You are in: " + path)
             print_info("From which folder do you want to list the files in? ")
             folder_name = str(input("<< "))
             folder_name = folder_name.replace(".", "/")
             path = path + folder_name + "/"
             display_folder_content(path)
-        elif resp == reset_path:
+        elif resp == RESET_PATH:
             path = ""
             print_info("Path updated")
-        elif resp == open_file:
+        elif resp == OPEN_FILE:
             print_info("File name: ")
             file_name = str(input("<< "))
             try:
